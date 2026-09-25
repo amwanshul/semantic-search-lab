@@ -1,9 +1,13 @@
 import unittest
 
-from app import DOCUMENTS, TfidfSearch
+from app import DOCUMENTS, SearchRequest, TfidfSearch
 
 
 class TestSearch(unittest.TestCase):
+    def test_search_request_rejects_non_positive_top_k(self):
+        with self.assertRaises(Exception):
+            SearchRequest(query="python", top_k=0)
+
     def test_relevant_document_ranks_first(self):
         engine = TfidfSearch(DOCUMENTS)
         results = engine.search("machine learning", top_k=3)

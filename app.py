@@ -3,7 +3,7 @@ import math
 
 import numpy as np
 from fastapi import FastAPI
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 DOCUMENTS = [
@@ -73,7 +73,7 @@ app = FastAPI(title="Semantic Search Lab", version="0.1.0")
 
 class SearchRequest(BaseModel):
     query: str
-    top_k: int = 3
+    top_k: int = Field(default=3, ge=1)
 
 
 @app.get("/health")
