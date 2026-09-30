@@ -1,11 +1,12 @@
 import unittest
+from pydantic import ValidationError
 
 from app import DOCUMENTS, SearchRequest, TfidfSearch
 
 
 class TestSearch(unittest.TestCase):
     def test_search_request_rejects_non_positive_top_k(self):
-        with self.assertRaises(Exception):
+        with self.assertRaises(ValidationError):
             SearchRequest(query="python", top_k=0)
 
     def test_relevant_document_ranks_first(self):
